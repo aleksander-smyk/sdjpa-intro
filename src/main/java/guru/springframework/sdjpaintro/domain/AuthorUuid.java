@@ -1,27 +1,27 @@
 package guru.springframework.sdjpaintro.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.JdbcTypeCode;
 
-/**
- * Created by jt on 8/14/21.
- */
+import java.sql.Types;
+import java.util.UUID;
+
 @Entity
-public class Author {
+public class AuthorUuid {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JdbcTypeCode(Types.VARCHAR)
+    @Column(length = 36, columnDefinition = "varchar(36)", updatable = false, nullable = false )
+    private UUID id;
 
     private String firstName;
     private String lastName;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -46,7 +46,7 @@ public class Author {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Author author = (Author) o;
+        AuthorUuid author = (AuthorUuid) o;
 
         return id != null ? id.equals(author.id) : author.id == null;
     }

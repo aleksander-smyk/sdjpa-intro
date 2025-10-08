@@ -1,31 +1,28 @@
 package guru.springframework.sdjpaintro.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
+
 import java.util.Objects;
+import java.util.UUID;
 
-/**
- * Created by jt on 6/12/21.
- */
 @Entity
-public class Book {
-
+public class BookUuid {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @UuidGenerator
+    @Column(columnDefinition = "binary(16)", updatable = false, nullable = false )
+    private UUID id;
 
     private String title;
     private String isbn;
     private String publisher;
     private Long authorId;
 
-    public Book() {
+    public BookUuid() {
 
     }
 
-    public Book(String title, String isbn, String publisher, Long authorId) {
+    public BookUuid(String title, String isbn, String publisher, Long authorId) {
         this.title = title;
         this.isbn = isbn;
         this.publisher = publisher;
@@ -37,7 +34,7 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Book book = (Book) o;
+        BookUuid book = (BookUuid) o;
 
         return Objects.equals(id, book.id);
     }
@@ -47,11 +44,11 @@ public class Book {
         return id != null ? id.hashCode() : 0;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
