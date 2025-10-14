@@ -10,7 +10,7 @@ import java.util.UUID;
 public class BookUuid {
     @Id
     @UuidGenerator
-    @Column(columnDefinition = "binary(16)", updatable = false, nullable = false )
+    @Column(columnDefinition = "VARBINARY(16)", updatable = false, nullable = false )
     private UUID id;
 
     private String title;

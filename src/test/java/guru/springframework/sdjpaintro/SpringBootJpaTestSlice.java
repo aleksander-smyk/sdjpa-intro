@@ -1,7 +1,11 @@
 package guru.springframework.sdjpaintro;
 
+import guru.springframework.sdjpaintro.domain.AuthorUuid;
 import guru.springframework.sdjpaintro.domain.Book;
+import guru.springframework.sdjpaintro.domain.BookUuid;
+import guru.springframework.sdjpaintro.repositories.AuthorUuidRepository;
 import guru.springframework.sdjpaintro.repositories.BookRepository;
+import guru.springframework.sdjpaintro.repositories.BookUuidRepository;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -11,7 +15,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.annotation.Commit;
-import org.springframework.test.annotation.Rollback;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -26,6 +29,33 @@ public class SpringBootJpaTestSlice {
 
     @Autowired
     BookRepository bookRepository;
+
+    @Autowired
+    BookUuidRepository bookUuidRepository;
+
+    @Autowired
+    AuthorUuidRepository authorUuidRepository;
+
+    @Test
+    @Order(3)
+    void testJpaTestBookUuidSliec() {
+        long countBefore = bookUuidRepository.count();
+        assertThat(countBefore).isEqualTo(1);
+
+        BookUuid newbook = bookUuidRepository.save(new BookUuid("My Book", "1235555", "Self", null));
+
+        assertThat(newbook.getId()).isNotNull();
+    }
+
+    @Test
+    @Order(4)
+    void testJpaTestAuthorUuidSliec() {
+        long countBefore = authorUuidRepository.count();
+        assertThat(countBefore).isEqualTo(1);
+
+        AuthorUuid newAuthor = authorUuidRepository.save(new AuthorUuid("My Author", "1235555"));
+        assertThat(newAuthor.getId()).isNotNull();
+    }
 
     @Commit
     @Order(1)

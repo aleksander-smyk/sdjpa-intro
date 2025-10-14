@@ -17,6 +17,15 @@ public class AuthorUuid {
     private String firstName;
     private String lastName;
 
+    public AuthorUuid() {
+
+    }
+
+    public AuthorUuid(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public UUID getId() {
         return id;
     }
